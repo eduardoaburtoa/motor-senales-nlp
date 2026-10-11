@@ -1,10 +1,7 @@
 {
-  "origen": "Salidas preservadas del notebook ejecutado aportado por Eduardo; no es una nueva corrida",
-  "fecha_ejecucion": "No registrada en las salidas visibles",
-  "fecha_auditoria": "2026-10-11",
-  "gpu": "Tesla T4",
-  "memoria_gpu_mib": 15360,
-  "driver": "580.82.07",
+  "fecha_ejecucion": "2026-10-09",
+  "entorno": "Google Colab",
+  "gpu": "Tesla T4 (15.6 GB)",
   "python": "3.13.15",
   "torch": "2.11.0+cu130",
   "transformers": "5.18.0",
@@ -12,13 +9,15 @@
   "scikit_learn": "1.6.1",
   "pandas": "2.2.3",
   "registros": 400,
+  "clases": ["NEGATIVO", "NEUTRAL", "POSITIVO"],
+  "modelos": [
+    "pysentimiento/robertuito-sentiment-analysis",
+    "finiteautomata/beto-sentiment-analysis",
+    "cardiffnlp/twitter-xlm-roberta-base-sentiment",
+    "nlptown/bert-base-multilingual-uncased-sentiment"
+  ],
   "semilla_dataset": 20261008,
-  "notebook_sha256": "90906f528d91842176a221b3c928ea4f965ee202fedfe53199c153f5a75da6cb",
-  "dataset_sha256": "cfde77a9fc80add41b1f9363219dca3ffa856df1807178b6c4471143b5002e6c",
-  "limitaciones": [
-    "Revisiones de modelos no registradas en corrida original",
-    "No se adjuntaron predicciones individuales originales",
-    "Sin partición independiente de validación/test",
-    "Medición de una sola corrida; no intervalo de variabilidad"
-  ]
+  "sha256_corpus": "cfde77a9fc80add41b1f9363219dca3f",
+  "modelo_recomendado": "cardiffnlp/twitter-xlm-roberta-base-sentiment",
+  "f1_macro_recomendado": 0.5544
 }

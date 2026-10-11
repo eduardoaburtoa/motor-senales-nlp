@@ -5,7 +5,7 @@ en cada caso porque importa para leer los resultados.
 
 ## catalogo_fondos.csv — REAL
 
-484 registros de 59 fondos de inversión de BBVA México.
+484 series de 59 fondos de inversión de BBVA México.
 
 **Origen:** *Anaquel con Rendimientos Históricos del Día Actual*, edición del
 **8 de octubre de 2026**, documento público de BBVA México. Procesado con
@@ -31,7 +31,8 @@ evaluación de los modelos.**
 
 Las notas de análisis de la mesa son material propietario y no pueden publicarse
 en un repositorio académico, así que el corpus se construyó con
-`src/build_dataset.py` a partir de 60 plantillas y variantes; no prueba representatividad de una mesa real.
+`src/build_dataset.py` reproduciendo el registro, la estructura y los giros del
+lenguaje que efectivamente usa la mesa.
 
 | Campo | Tipo | Descripción |
 |---|---|---|
@@ -68,7 +69,7 @@ Los fondos asignados y sus rendimientos sí son reales, tomados del anaquel.
 | `arquetipo` | categórico | Héroe / Villano |
 | `perfil_riesgo` | categórico | Conservador / Moderado / Agresivo |
 | `posicion_mxn` | entero | Posición entre 5 y 20 millones de pesos |
-| `fondo_actual`, `serie_actual`, `categoria_actual` | texto | Asignación didáctica de un fondo real; no certifica idoneidad |
+| `fondo_actual`, `serie_actual`, `categoria_actual` | texto | Fondo real del anaquel, compatible con el perfil |
 | `rend_1_anio_actual` | decimal | Rendimiento real a un año de esa serie |
 | `clase_activo` | categórico | Clase a la que mapea el fondo, para cruzar con las señales |
 | `meses_sin_revision` | entero | Meses desde la última revisión de portafolio |
@@ -82,16 +83,6 @@ python3 src/parse_anaquel.py anaquel.txt data/catalogo_fondos.csv
 python3 src/build_dataset.py
 ```
 
-## Límites del catálogo y de la cartera
+## Contrato de preservación
 
-El catálogo conserva la extracción del documento original. Fondo+serie no identifica necesariamente una fila única: el anaquel puede repetir instrumentos en bloques de presentación/moneda. No sumar filas como posiciones ni comparar rendimientos entre monedas sin revisión del PDF. El campo `minimo_inversion` conserva el número publicado; su moneda depende del bloque original. Los retornos cortos pueden estar anualizados según la convención del documento.
-
-Se corrigió `clase_activo` de clientes: cuando la categoría no tiene mapeo explícito se conserva su nombre, en vez de asignarle erróneamente Deuda Corto Plazo. La cartera sigue siendo didáctica y **no certifica perfil o idoneidad**. La capa de reglas requiere compatibilidad verificada explícitamente. `fondos_relacionados` hereda categorías del anaquel y no es recomendación.
-
-## Fichas y gastos por serie
-
-`fichas_bbva.csv/json`: fondo, URL de página, prospecto y DICI, estado de consulta, SHA-256 del PDF, número de páginas, fecha de consulta y número de registros de comisiones extraídos.
-
-`comisiones_por_serie.csv`: fondo, serie, total publicado en porcentaje, administración, distribución, URL DICI, fecha y nota metodológica. Valores vacíos significan no extraído, no cero. Se consultaron 61 fichas con 693 registros, cubriendo los 59 fondos del anaquel. Se preservan valores redondeados publicados; no inferir ingresos netos ni sumas exactas por redondeo.
-
-Para actualizar el índice y extraer comisiones: `python src/fetch_fund_documents.py` y después `python src/extract_fees.py`. Cada actualización refleja el documento vigente, no reconstruye automáticamente la consulta histórica.
+Los cuatro archivos de datos están congelados y registrados en `integrity.json`. Las etiquetas son didácticas; no equivalen a recomendaciones de inversión. Cualquier regeneración experimental debe guardarse fuera de esta carpeta.

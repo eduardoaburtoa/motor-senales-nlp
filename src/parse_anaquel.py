@@ -15,9 +15,12 @@ Salida: un renglón por serie de fondo, con su categoría, calificación,
 inversión mínima, rendimientos y precio. Todos los datos son los publicados
 por BBVA; este script no calcula ni estima ninguna cifra.
 """
+
 import csv
 import re
-import sys
+import argparse
+import logging
+from pathlib import Path
 
 # 6 rendimientos en porcentaje + precio al final del renglón
 NUMS = re.compile(
@@ -28,23 +31,32 @@ CALIF = re.compile(r"^(AAA|AA|A|BBB|BB)/\d+$")
 
 # Encabezados que aparecen centrados y definen la categoría en curso
 FAMILIAS = {
-    "Fondos de Deuda", "Fondos de Renta Variable", "Fondos de Estrategias",
-    "Fondos de MultiEstrategias", "Fondos de MultiActivos",
+    "Fondos de Deuda",
+    "Fondos de Renta Variable",
+    "Fondos de Estrategias",
+    "Fondos de MultiEstrategias",
+    "Fondos de MultiActivos",
     "Fondos de Liquidez en Divisas",
 }
 CATEGORIAS = [
-    "Deuda Corto Plazo", "Deuda Mediano Plazo", "Deuda Largo Plazo",
-    "Retorno Absoluto", "Fondos de Liquidez en Divisas",
-    "Renta Variable Nacional", "Renta Variable Internacional",
-    "Fondos de Estrategias Pesos", "Fondos de Estrategias Dolarizados",
-    "Fondos de MultiEstrategias Pesos", "Fondos de MultiEstrategias Dolarizados",
+    "Deuda Corto Plazo",
+    "Deuda Mediano Plazo",
+    "Deuda Largo Plazo",
+    "Retorno Absoluto",
+    "Fondos de Liquidez en Divisas",
+    "Renta Variable Nacional",
+    "Renta Variable Internacional",
+    "Fondos de Estrategias Pesos",
+    "Fondos de Estrategias Dolarizados",
+    "Fondos de MultiEstrategias Pesos",
+    "Fondos de MultiEstrategias Dolarizados",
     "Fondos de MultiActivos",
 ]
 
 
 def parse(path_txt):
     filas, familia, categoria, publico = [], "", "", "Personas Físicas"
-    for raw in open(path_txt, encoding="utf-8"):
+    for raw in Path(path_txt).read_text(encoding="utf-8").splitlines():
         linea = raw.rstrip("\n")
         texto = linea.strip()
         if not texto:
@@ -80,34 +92,66 @@ def parse(path_txt):
             continue
 
         d, sem, mes, anio, a1, a2, precio = m.groups()
-        filas.append(dict(
-            fondo=fondo, serie=serie, publico=publico,
-            familia=familia or "Fondos de Deuda", categoria=categoria,
-            calificacion=calificacion, minimo_inversion=int(minimo),
-            rend_diario=float(d), rend_semanal=float(sem), rend_acum_mes=float(mes),
-            rend_acum_anio=float(anio), rend_1_anio=float(a1), rend_2_anios=float(a2),
-            precio=float(precio),
-        ))
+        filas.append(
+            dict(
+                fondo=fondo,
+                serie=serie,
+                publico=publico,
+                familia=familia or "Fondos de Deuda",
+                categoria=categoria,
+                calificacion=calificacion,
+                minimo_inversion=int(minimo),
+                rend_diario=float(d),
+                rend_semanal=float(sem),
+                rend_acum_mes=float(mes),
+                rend_acum_anio=float(anio),
+                rend_1_anio=float(a1),
+                rend_2_anios=float(a2),
+                precio=float(precio),
+            )
+        )
     return filas
 
 
 def main():
-    entrada = sys.argv[1] if len(sys.argv) > 1 else "anaquel.txt"
-    salida = sys.argv[2] if len(sys.argv) > 2 else "../data/catalogo_fondos.csv"
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("entrada")
+    ap.add_argument("salida", nargs="?", default="scratch/catalogo_fondos.csv")
+    args = ap.parse_args()
+    entrada, salida = args.entrada, Path(args.salida)
+    if salida.resolve().parent == Path(__file__).resolve().parents[1] / "data":
+        ap.error("data/ está congelada; usa otra carpeta")
+    salida.parent.mkdir(parents=True, exist_ok=True)
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
     filas = parse(entrada)
-    campos = ["fondo", "serie", "publico", "familia", "categoria", "calificacion",
-              "minimo_inversion", "rend_diario", "rend_semanal", "rend_acum_mes",
-              "rend_acum_anio", "rend_1_anio", "rend_2_anios", "precio"]
+    if not filas:
+        ap.error("No se encontraron series: usa texto extraído con pdftotext -layout")
+    campos = [
+        "fondo",
+        "serie",
+        "publico",
+        "familia",
+        "categoria",
+        "calificacion",
+        "minimo_inversion",
+        "rend_diario",
+        "rend_semanal",
+        "rend_acum_mes",
+        "rend_acum_anio",
+        "rend_1_anio",
+        "rend_2_anios",
+        "precio",
+    ]
     with open(salida, "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=campos)
         w.writeheader()
         w.writerows(filas)
     fondos = sorted({f["fondo"] for f in filas})
-    print(f"{len(filas)} series · {len(fondos)} fondos · {salida}")
+    logging.info(f"{len(filas)} series · {len(fondos)} fondos · {salida}")
     for cat in CATEGORIAS:
         n = sum(1 for f in filas if f["categoria"] == cat)
         if n:
-            print(f"   {cat:42s} {n:4d}")
+            logging.info(f"   {cat:42s} {n:4d}")
 
 
 if __name__ == "__main__":

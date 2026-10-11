@@ -1,0 +1,54 @@
+{
+  "data/catalogo_fondos.csv": {
+    "sha256": "5aba6561f497968ac0aa0a9e1f7974e41ab461eac21eeda8ff39883397f11ace",
+    "bytes": 62261
+  },
+  "data/clientes_simulados.csv": {
+    "sha256": "88f29f5781aed1465bf200763e144570103706e5ea2167ace5d1a738da35accf",
+    "bytes": 15601
+  },
+  "data/dataset_completo.xlsx": {
+    "sha256": "bb90f7b06ba495ec0eaa2c8ea12afbd8eef2de79448e8e771b29948dafa25ec2",
+    "bytes": 86946
+  },
+  "data/notas_mercado.csv": {
+    "sha256": "cfde77a9fc80add41b1f9363219dca3ffa856df1807178b6c4471143b5002e6c",
+    "bytes": 102590
+  },
+  "docs/analisis_comparativo.docx": {
+    "sha256": "cf3f2c36eacecbdda651ae0ede358d86a889f2043068d6aeb6b2452d2f886a28",
+    "bytes": 84579
+  },
+  "notebooks/01_comparacion_modelos_hf_EJECUTADO.ipynb": {
+    "sha256": "90906f528d91842176a221b3c928ea4f965ee202fedfe53199c153f5a75da6cb",
+    "bytes": 730796
+  },
+  "results/condiciones_ejecucion.json": {
+    "sha256": "690b7cd2c0ac359c410eff510e02cfcd71ac01dd2ab7465dbdbfe34f67c70371",
+    "bytes": 742
+  },
+  "results/curva_umbral.csv": {
+    "sha256": "960526b01276094945bb21dcfd73b2d4aaeb73be29361801c989516f453d44d7",
+    "bytes": 223
+  },
+  "results/desempeno_por_dificultad.csv": {
+    "sha256": "ad73c2aeaf9379b5348643fb99ebc60b65f4cf6d84d38a3de7cf55098c3b4f7e",
+    "bytes": 227
+  },
+  "results/matrices_confusion.png": {
+    "sha256": "3c18e520a714166e0c74256d539015a54080880b25bc0b0ee037c255abb0763d",
+    "bytes": 25845
+  },
+  "results/metricas_por_clase.csv": {
+    "sha256": "035b0fd44aa18ef501a92fb49567e6f8596e5a83b0707ec4add1bf795980da9f",
+    "bytes": 543
+  },
+  "results/tabla_comparativa.csv": {
+    "sha256": "6830d6ce3023198ddab013a31038f6012d60334ebcda9d60ca453c7d2759eda6",
+    "bytes": 571
+  },
+  "results/tradeoff_precision_latencia.png": {
+    "sha256": "fdd5543138820541e3e3a2c03118c58219e8f9625da5ac95115f18b3311a2639",
+    "bytes": 24727
+  }
+}

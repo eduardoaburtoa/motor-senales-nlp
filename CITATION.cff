@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "Cita este repositorio si reutilizas el código o el corpus didáctico."
+title: "Motor de señales: comparación de modelos preentrenados de Hugging Face"
+authors:
+  - family-names: "Aburto Angulo"
+    given-names: "Eduardo"
+repository-code: "https://github.com/eduardoaburtoa/motor-senales-nlp"
+type: software

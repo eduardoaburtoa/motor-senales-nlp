@@ -3,9 +3,9 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 .env
-anaquel.txt
-results/*
-!results/.gitkeep
-
-results/fichas_temporales/
 .venv/
+.ruff_cache/
+.pytest_cache/
+anaquel.txt
+scratch/
+# results/ contiene evidencia y se versiona completo.
