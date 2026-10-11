@@ -1,0 +1,5 @@
+Modelo,Familia,Arquitectura,Parámetros (M),Licencia,Accuracy,Precision macro,Recall macro,F1 macro,ms/nota (lote),ms unitaria,notas/s,Carga (s)
+XLM-R Twitter,Multilingüe,XLM-RoBERTa base,278.0,MIT,0.550,0.6857,0.6184,0.5544,3.02,21.9,330.8,21.6
+BETO,Español específico,BERT (BETO),109.9,Apache-2.0,0.470,0.7214,0.5434,0.4719,6.31,20.4,158.5,12.2
+mBERT nlptown,Multilingüe,BERT multilingüe,167.4,MIT,0.475,0.4597,0.4566,0.4515,3.04,10.6,329.4,15.4
+RoBERTuito,Español específico,RoBERTa (RoBERTuito),108.8,Apache-2.0,0.405,0.7086,0.4942,0.3547,2.98,23.7,335.4,12.0

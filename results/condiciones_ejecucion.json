@@ -1,0 +1,24 @@
+{
+  "origen": "Salidas preservadas del notebook ejecutado aportado por Eduardo; no es una nueva corrida",
+  "fecha_ejecucion": "No registrada en las salidas visibles",
+  "fecha_auditoria": "2026-10-11",
+  "gpu": "Tesla T4",
+  "memoria_gpu_mib": 15360,
+  "driver": "580.82.07",
+  "python": "3.13.15",
+  "torch": "2.11.0+cu130",
+  "transformers": "5.18.0",
+  "huggingface_hub": "1.33.0",
+  "scikit_learn": "1.6.1",
+  "pandas": "2.2.3",
+  "registros": 400,
+  "semilla_dataset": 20261008,
+  "notebook_sha256": "90906f528d91842176a221b3c928ea4f965ee202fedfe53199c153f5a75da6cb",
+  "dataset_sha256": "cfde77a9fc80add41b1f9363219dca3ffa856df1807178b6c4471143b5002e6c",
+  "limitaciones": [
+    "Revisiones de modelos no registradas en corrida original",
+    "No se adjuntaron predicciones individuales originales",
+    "Sin partición independiente de validación/test",
+    "Medición de una sola corrida; no intervalo de variabilidad"
+  ]
+}
